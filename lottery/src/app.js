@@ -1,4 +1,4 @@
-const contractAddress = "0xc3968D2D8D813B8A76670c6Ac2F2DFbA0E2E7701"; 
+const contractAddress = "0x89FDe98E60aa4aECA670702c2ec47E6FC51f05c3"; 
 const contractABI = [
     {
         "inputs": [],
@@ -191,7 +191,11 @@ async function pickWinner() {
     const accountsDropdown = document.getElementById("accounts");
     const selectedAccount = accountsDropdown.value;
 
-    message.innerText = "Nyertes választása...";
+    const manager = await lottery.methods.manager().call();
+    if (selectedAccount.toLowerCase() !== manager.toLowerCase()) {
+        message.innerText = "Only the manager can pick a winner.";
+        return;
+    }
 
     try {
         await lottery.methods.pickWinner().send({

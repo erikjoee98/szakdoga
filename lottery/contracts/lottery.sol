@@ -20,21 +20,23 @@ contract Lottery {
         return uint(keccak256(abi.encodePacked(block.prevrandao, block.timestamp, players)));
     }
 
-    function pickWinner() public restricted {
+        function pickWinner() public restricted {
+        require(players.length > 0, "No players in the lottery");
         uint index = random() % players.length;
-        address winner = players[index];
+        address payable winner = payable(players[index]);
         uint reward = address(this).balance;
 
         // Kifizetjük a nyertesnek a nyereményt
-        payable(winner).transfer(reward);
+        winner.transfer(reward);
         
         // Eltároljuk a nyertest és a nyeremény összegét
         winners.push(winner);
         rewards.push(reward);
 
         // Nyertesek tömböt reseteljük
-      players = new address payable[](0) ;
+        players = new address payable[](0) ; 
     }
+
 
     modifier restricted() {
         require(msg.sender == manager, "Csak a manager tudja meghivni a fuggvenyt");
