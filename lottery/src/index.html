@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lottery DApp</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Erik Lottó Játéka (POC)</h1>
+    <div>
+        <label for="accounts">Select Account:</label>
+        <select id="accounts"></select>
+        <br><br>
+        <input type="text" id="etherAmount" placeholder="Enter amount in ETH" />
+        <button onclick="enterLottery()">Enter Lottery</button>
+    </div>
+    <button onclick="pickWinner()">Pick Winner</button>
+    <p id="message"></p>
+    <h2>Previous Winners</h2>
+    <ul id="winners"></ul>
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
